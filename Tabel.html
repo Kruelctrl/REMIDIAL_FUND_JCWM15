@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 5px 8px;
+        }
+    </style>
+    <title>Form Product</title>
+</head>
+<body>
+    <h1>FORM PRODUCT</h1>
+    <form>
+        <input type="text" id="name" placeholder="Product Name">
+        <input type="number" id="price" placeholder="Product Price">        
+        <br> 
+
+        <!-- Checkbox -->
+
+        Category:
+        <input type="radio" name="choice" value="Food" checked> Food 
+        <input type="radio" name="choice" value="Drink"> Drink 
+        <input type="radio" name="choice" value="Others"> Others
+        <br>
+
+        <!-- Button Add -->
+
+        <button onclick="OnButtonAdd()">Add</button>
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>No </th>
+                <th>Name </th>
+                <th>Price </th>
+                <th>Category </th>
+                <th>Action </th>
+            </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+    </table> 
+</body>
+<script>
+    // access element
+    let tbody = document.getElementById("tbody")
+    let form = document.forms[0]
+
+    // database
+    let product = [
+        {
+            name : "Apel",
+            price : 5000,
+            category : "Food",
+        },
+        {
+            name : "Milk",
+            price : 7000,
+            category : "Drink"
+        },
+        {
+            name : "Tissue",
+            price : 2000,
+            category : "Others"
+        }
+    ]
+
+    // show database
+    const ShowProduct = (idx) => {
+        let tr = ""
+        for (let i = 0; i < product.length; i++) {
+            if (idx === i) {
+                tr += `
+                    <tr>
+                        <td>#</td>
+                        <td>
+                            <input type="text" id="edit-name" value="${product[i].name}">
+                        </td>
+                        <td>
+                            <input type="number" id="edit-price" value="${product[i].price}">
+                        </td>
+                        <td>
+                            <select id="edit-category">
+                                <option>Food</option>
+                                <option>Drink</option>
+                                <option>Others</option>
+                            </select>
+                        </td>
+                        <td>
+                            <button onclick="OnButtonSave(${i})">SAVE</button>
+                            <button onclick="ShowProduct()">CANCEL</button>
+                        </td>
+                    <tr>
+                `
+            } else {
+                tr += `
+                    <tr>
+                        <td>${i + 1}</td>
+                        <td>${product[i].name}</td>
+                        <td>${product[i].price}</td>
+                        <td>${product[i].category}</td>
+                        <td>
+                            <button onclick="ShowProduct(${i})">EDIT</button>
+                            <button onclick="OnButtonDelete(${i})">DELETE</button>
+                        </td>
+                    <tr>
+                `
+            }
+        }
+
+        // show table
+        tbody.innerHTML = tr
+    }
+
+    // show table
+    ShowProduct()
+
+    // add new user
+    const OnButtonAdd = () => {
+        // get all value
+        let name = form["name"].value
+        let price = form["price"].value
+        let category = form["category"].value
+        console.log(name, price, category)
+
+        // check input
+        if (name === '' || price === '' || category === '') {
+            alert("⚠ Wrong input !")
+            return
+        }
+
+        // add new user
+        product.push({ name, price, category })
+
+        // reset value
+        form["name"].value = ""
+        form["price"].value = ""
+        form["category"].value = ""
+
+        // show table
+        ShowProduct()
+    }
+
+    // delete user
+    const OnButtonDelete = idx => {
+        // delete user
+        product.splice(idx, 1)
+
+        // show table
+        ShowProduct()
+    }
+
+    // save edited user
+    const OnButtonSave = (idx) => {
+        // get all value
+        let edName = document.getElementById("edit-name").value
+        let edPrice = document.getElementById("edit-price").value
+        let edCategory= document.getElementById("edit-category").value
+
+        // update database
+        product[idx] = { name : edName, price : edPrice, category : edCategory }
+
+        // show table
+        ShowProduct()
+    }
+</script>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Huruf Vokal</title>
+</head>
+<body>
+    <h1>Masukan Kata :</h1>
+    
+    <form>
+        <input type="text" id="inputText" placeholder="Masukan sebuah kata">
+    </form>
+    <br> 
+    <button onclick="OnButtonVocal1"> Hitung Vokal</button>
+    <button onclick="OnButtonVocal2"> Huruf Vokal</button>
+    <button onclick="OnButtonVocal3"> Tanpa Vokal</button>
+
+    <h1>Hasil : </h1>
+    <h1 id="output"></h1>
+</body>
+    <script>
+        // access element
+        let TextInput = document.forms[0][inputText]
+        let output = document.getElementById("output")
+        let vowel_list = 'aiueoAIUEO';
+        let vcount = 0;
+
+        // show Hitung Vokal
+        // function OnButtonVocal1 = () => {
+
+        //     if (inputText.length = "") return alert ("input harus di isi")
+
+
+
+        //     for(let i = 0; i < OnButtonVocal1().length ; i++)
+        //     {
+        //         if (vowel_list.indexOf(OnButtonVocal1(i)) =/= -1)
+        //         {
+        //             vcount += 1;
+
+        //         }
+        //     }
+        //     return vcount;
+
+        //     // show output
+        //     output.innerHTML = vcount
+        // }
+
+            const OnButtonVocal1 = () => {
+                let inputText = inputText.value
+
+                if (inputText = "") return alert (Input tidak boleh kosong)
+
+                // pattern
+                let pattern = ""
+                let Vocal1 = 0
+                for (let i=0; i<inputText; i++){
+                    if (vowel_list.indexOf(OnButtonVocal1(i)) =/= -1)
+                }
+                Vocal1 += 1;
+            }
+
+            // show output
+            output.innerHTML = pattern
+
+
+        console.log(OnButtonVocal1());
+        // Show Vokal (removeVocal)
+        const OnButtonVocal2 = () => {
+            function removeVowels(str) {
+            return str.replace(/[aeiou]/gi, '');
+            }
+
+        }
+
+        // show Tanpa Vokal (removeConsonant)
+        const OnButtonVocal3 = () => {
+        }
+
+    </script>
+</html>
